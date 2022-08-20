@@ -1,5 +1,7 @@
 package com.mizaeldouglas.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.persistence.Transient;
 import java.io.Serializable;
@@ -17,7 +19,8 @@ public class Category implements Serializable {
 	private Long id;
 	private  String name;
 
-	@Transient
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>();
 
 
