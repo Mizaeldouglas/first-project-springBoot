@@ -2,9 +2,11 @@ package com.mizaeldouglas.curso.services;
 
 import com.mizaeldouglas.curso.entities.User;
 import com.mizaeldouglas.curso.repositories.UserRepository;
+import com.mizaeldouglas.curso.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.ReadOnlyFileSystemException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +22,7 @@ public class UserService {
 
 	public User findById(Long id){
 		Optional<User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public User insert(User obj) {
